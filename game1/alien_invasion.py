@@ -9,6 +9,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -27,6 +28,9 @@ class AlienInvasion:
         # 创建ship类实例
         self.ship = Ship(self)
 
+        # 用于存储子弹的编组
+        self.bullets = pygame.sprite.Group()
+
     def _check_events(self):
         """响应按键和鼠标方法(辅助方法)"""
         for event in pygame.event.get():
@@ -34,20 +38,39 @@ class AlienInvasion:
                 sys.exit()
             # 按下按键
             elif event.type == pygame.KEYDOWN:
-                # 按键是向右时，把向右移动标志置为True
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = True
-                # 按键是向左时，把向左移动标志置为True
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = True
+                self._check_keydown_events(event)
             # 取消按键
             elif event.type == pygame.KEYUP:
-                # 抬起按键是向右时，把向右移动标志置为False
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = False
-                # 抬起按键是向左时，把向左移动标志置为False
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = False
+                self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        """辅助方法,响应按键"""
+        # 按键是向右时，把向右移动标志置为True
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        # 按键是向左时，把向左移动标志置为True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+        # 按键为q时，退出程序
+        elif event.key == pygame.K_q:
+            sys.exit()
+        # 按键为空格时，发射一颗子弹
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+    def _check_keyup_events(self, event):
+        """辅助方法,响应松开"""
+        # 抬起按键是向右时，把向右移动标志置为False
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        # 抬起按键是向左时，把向左移动标志置为False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        """创建一颗子弹，并将其加入编组bullets中"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕(辅助方法)"""
@@ -55,6 +78,9 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color)
         # 加载新的飞船
         self.ship.blitme()
+        # 绘制子弹
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
@@ -63,6 +89,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
 

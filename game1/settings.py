@@ -19,3 +19,9 @@ class Settings:
         # 移动速度
         self.ship_speed = 1.5
 
+        # 子弹的设置
+        self.bullet_speed = 1
+        self.bullet_width, self.bullet_height = 3, 15
+        self.bullet_color = (60, 60, 60)
+
+
