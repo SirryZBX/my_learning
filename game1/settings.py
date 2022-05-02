@@ -13,7 +13,7 @@ class Settings:
     def __init__(self):
         """初始化游戏设置"""
         # 窗口高度和宽度
-        self.screen_width, self.screen_height = 600, 400
+        self.screen_width, self.screen_height = 300, 600
         # 背景颜色
         self.bg_color = (150, 150, 150)
         # 移动速度
@@ -21,7 +21,8 @@ class Settings:
 
         # 子弹的设置
         self.bullet_speed = 1
-        self.bullet_width, self.bullet_height = 3, 15
-        self.bullet_color = (60, 60, 60)
+        self.bullet_width, self.bullet_height = 3, 8
+        self.bullet_color = (0, 0, 255)
+        self.bullet_allowed = 10
 
 

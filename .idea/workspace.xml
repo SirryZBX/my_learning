@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c34debbb-094c-4bbc-8e63-aa190e726917" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game1/alien_invasion.py" beforeDir="false" afterPath="$PROJECT_DIR$/game1/alien_invasion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/game1/settings.py" afterDir="false" />
     </list>

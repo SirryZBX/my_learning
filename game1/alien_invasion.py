@@ -69,8 +69,10 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """创建一颗子弹，并将其加入编组bullets中"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        # 如果子弹编组的长度小于设置的最大子弹数的时候，才允许发射新的子弹
+        if len(self.bullets) < self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕(辅助方法)"""
@@ -84,12 +86,19 @@ class AlienInvasion:
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
+    def _update_bullets(self):
+        """删除超出屏幕的子弹"""
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom < 0:
+                self.bullets.remove(bullet)
+
     def run_game(self):
         """开始游戏的主循环"""
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
 
 
