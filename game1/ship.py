@@ -6,12 +6,14 @@
 @CreateTime:2022/4/30 20:53
 """
 import pygame
+from pygame.sprite import Sprite
 
 
-class Ship:
+class Ship(Sprite):
     """管理飞船的类"""
 
     def __init__(self, ai_game):
+        super().__init__()
         """初始化飞船并设置其初始位置"""
         # 屏幕定义为ai_game的屏幕
         self.screen = ai_game.screen
@@ -21,7 +23,7 @@ class Ship:
         # 加载飞船图像
         self.image = pygame.image.load('images/ship.bmp')
         # 重新设置一下飞船的大小
-        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.image = pygame.transform.scale(self.image, (30, 30))
         # 获取飞船外接矩阵
         self.rect = self.image.get_rect()
 
@@ -49,3 +51,7 @@ class Ship:
             self.x -= self.settings.ship_speed
         # 根据self.x 更新rect对象
         self.rect.x = self.x
+
+    def center_ship(self):
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
