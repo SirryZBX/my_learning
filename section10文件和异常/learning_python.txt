@@ -1,0 +1,3 @@
+In python you can create different types of data
+In python you can make some judgments
+In python you can simulate real world objects
